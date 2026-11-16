@@ -1,9 +1,10 @@
 {
-  "name":"coffee-control",
-  "private":true,
-  "type":"module",
-  "scripts":{
-    "test":"node --test src/*.test.mjs",
-    "build":"node scripts/build.mjs"
+  "name": "coffee-control",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/*.test.mjs server/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "server": "node server/server.mjs"
   }
 }

@@ -1,2 +1,4 @@
 dist/
 .openai/
+coffee-data/
+.env

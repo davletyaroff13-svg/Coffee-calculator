@@ -14,15 +14,24 @@ Continue in `develop/coffee-control-5`. Do not merge or publish as a completed 5
 - Independent cafes with optional menu copying and a cross-cafe financial summary.
 - One validated local workspace containing every cafe and journal. Migration retains both legacy localStorage keys. Invalid migration stops without overwriting source data. Existing draft sales can only be snapshotted using the current legacy recipe at migration time; earlier compositions were not recorded and cannot be reconstructed.
 - Full JSON backup/restore, separate-cafe import of old model files, explicit restore preview, automatic pre-restore/pre-reset download, AES-GCM encrypted manual file transfer, PBKDF2 key derivation. Passwords and encryption keys are not persisted.
-- Local rule-based insights and an optional generated prompt that the user can copy into an AI chat. No AI request is sent from the application.
+- Local rule-based insights and an optional generated prompt that the user can copy into an AI chat. No AI request is sent unless the user connects their own configured backend and explicitly sends a previewed prompt.
 - Quota failure leaves in-memory state unchanged; stale-tab writes are rejected; storage events refresh other tabs on the same browser/origin. This is not distributed synchronization or automatic conflict merging.
+
+## Server capabilities implemented, not deployed
+
+- Optional self-hosted Node HTTP service: no user registration. The first device creates a random encrypted space using an operator setup token; subsequent devices pair with a secret code.
+- AES-GCM client-side encrypted snapshots. Only a derived authentication token is transmitted; the server does not receive the encryption secret. The bearer token hash is stored with the encrypted payload.
+- Conditional writes, serialized durable file replacement, exact CORS allowlist, bounded payloads, per-IP/per-space rate limits, space quota, and durable daily AI request counts.
+- Automatic push/pull every 30 seconds while a connected page is open. Concurrent edits pause automatic writes and retain both versions; the UI can preview and explicitly adopt the remote copy. Disconnect leaves local records intact. This is whole-workspace synchronization, not record merging or background processing while the page is closed.
+- Optional AI gateway using a configured Chat Completions-compatible HTTPS endpoint. API keys remain in server environment variables. The UI previews the exact prompt and asks before sending it to the server/provider. Model output is rendered as text and cannot change the workspace.
+- Two simulated devices were tested against the real local HTTP server for push/pull, conflict pause, preview/adoption, and disconnection. The external AI endpoint was mocked; no paid provider calls were made.
 
 ## Remaining release scope
 
-1. **Automatic synchronization between different devices.** Not implemented. The encrypted file transfer is manual. The agreed privacy requirements exclude registering users or collecting their cafe data on a shared server. Before a cloud implementation, choose an approved storage/account model, encryption, conflict handling, hosting location, and operating cost. No server/provider credentials are configured.
-2. **Integrated generative AI.** Not implemented. The local advisor is deterministic and explicitly labelled. A real integration needs a chosen on-device model or an approved backend/provider and a decision about which cafe data may be sent. Never put provider keys in a static frontend.
+1. **Production infrastructure configuration.** No server, HTTPS endpoint, storage location, operator setup token, or paid AI provider has been provisioned. See [SERVER_SETUP.md](SERVER_SETUP.md). Do not deploy this backend to a public host or enable data transfer by default. User approval of infrastructure, costs, and data destinations is still needed.
+2. **Live provider and deployed-device validation.** A real configured AI response, cross-device operation through the chosen HTTPS server, and recovery through that production endpoint remain unverified.
 3. **Real iPhone/Safari verification.** Pending. The responsive layout was inspected in Chrome at desktop and at a 390 px iframe viewport. This is not a physical iPhone/Safari or WebKit compatibility test.
-4. **Final release validation and publication.** Blocked on the scope above. No intermediate 4.x or partial 5.0 release should be published.
+4. **Final release publication.** Do not publish a partial 5.0 or intermediate 4.x release. Keep the existing Pages site on `main` until these final checks are complete.
 
 ## Develop and check
 
@@ -39,8 +48,8 @@ The current browser UI imports `workspace.js`, `analytics.js`, `csv.js`, `transf
 
 ## Validation recorded
 
-- `npm test`: 22 passing tests covering financial/inventory primitives, migration, immutable sale snapshots, cancellation, loss and packaging quantities, inventory guards, isolated cafes, bad imports, persistence failure, stale-tab writes, Moscow date boundaries, history demand, CSV parsing, encrypted roundtrip, wrong password and tampering.
+- `npm test`: 33 passing tests covering financial/inventory primitives, migration, immutable sale snapshots, cancellation, loss and packaging quantities, inventory guards, isolated cafes, bad imports, persistence failure, stale-tab writes, Moscow date boundaries, history demand, CSV parsing, encrypted roundtrip, wrong password and tampering.
 - Browser: insufficient-stock sale rejected; initial balances saved; actual sale depleted exact quantities; recipe composition and price changed without rewriting actual analytics; second cafe started without stock or sales; catalog search/addition; scenario calculation; encrypted download/open/decrypt/full restore; actual CSV preview and import; repeat import rejected without further stock depletion; duplicate form IDs corrected and checked.
 - Responsive stock layout at a 390 px iframe viewport: document scroll width matched client width (375 px after scrollbar), no horizontal document overflow.
 
-These checks do not establish cloud synchronization, generative AI operation, or native iPhone support.
+Backend checks establish local HTTP synchronization and a mocked AI protocol, not operation on a production server, a live AI model, or native iPhone support.
