@@ -40,3 +40,4 @@ export function financialReport({recipes, ingredients, days = 30, rent = 0, payr
   const breakevenCupsPerDay = days > 0 && contributionPerCup > 0 ? Math.ceil(fixed / days / contributionPerCup) : null;
   return {menu, dailyRevenue, revenue, ingredientCost, acquiring, fixed, profitBeforeTax, estimatedTax, estimatedProfit, breakevenCupsPerDay, assumptions:'Продажи в техкартах считаются дневным прогнозом; налог условный, не налоговый учёт.'};
 }
+

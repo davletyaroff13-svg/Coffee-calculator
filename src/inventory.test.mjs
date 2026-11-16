@@ -8,3 +8,4 @@ equal(report.map(x=>x.balance),[60,340]);
 equal(report.map(x=>x.lowStock),[false,true]);
 equal(purchasingPlan({report,projectedDailySales:[18,180],leadDays:2}).map(x=>x.orderQuantity),[26,420]);
 console.log('Inventory tests passed');
+

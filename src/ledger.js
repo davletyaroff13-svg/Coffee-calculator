@@ -41,3 +41,4 @@ export function reverseMovement(ledger, originalId, reversalId, timestamp, reaso
   const quantity = original.type === 'adjustment' ? -original.quantity : original.quantity;
   return recordMovement({ledger,opening,ingredientCount,movement:{id:reversalId,type,ingredientIndex:original.ingredientIndex,quantity,timestamp,reason:'Отмена '+originalId+': '+reason}});
 }
+

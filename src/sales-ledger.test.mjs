@@ -11,3 +11,4 @@ try{recordSale({sales:result.sales,sale:invalid,recipes,opening:[100,500],ledger
 }
 if(errors!==2)throw Error('Duplicate or stock guard failed');
 console.log('Sales ledger tests passed');
+

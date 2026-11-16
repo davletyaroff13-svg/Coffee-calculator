@@ -19,3 +19,4 @@ let rejected=false;
 try{recipeCost({lines:[[3,1]]},ingredients)}catch{rejected=true}
 check(rejected,true);
 console.log('Finance tests passed');
+

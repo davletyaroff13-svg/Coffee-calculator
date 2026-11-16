@@ -15,3 +15,4 @@ try{recordMovement({ledger:second.ledger,opening:[5],ingredientCount:1,movement}
 }
 if(rejected!==2)throw Error('Validation failed');
 console.log('Ledger tests passed');
+

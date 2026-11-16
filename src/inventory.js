@@ -39,3 +39,4 @@ export function purchasingPlan({report, projectedDailySales, leadDays, safetyDay
     return {...item, orderQuantity: Math.max(0, Math.ceil(demand + item.minimum - item.balance))};
   });
 }
+

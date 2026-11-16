@@ -38,3 +38,4 @@ export function recordSale({sales, sale, recipes, opening, ledger, ingredientCou
   if(!allowNegative&&balances.some(n=>n< -1e-9))throw Error('Недостаточный остаток для продажи');
   return {sales:next,balances};
 }
+
