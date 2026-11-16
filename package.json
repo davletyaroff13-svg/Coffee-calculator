@@ -1,0 +1,8 @@
+{
+  "name": "coffee-control",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node src/inventory.test.mjs && node src/finance.test.mjs"
+  }
+}
