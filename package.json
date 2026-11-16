@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node src/inventory.test.mjs && node src/finance.test.mjs && node src/ledger.test.mjs"
+    "test": "node src/inventory.test.mjs && node src/finance.test.mjs && node src/ledger.test.mjs && node src/sales-ledger.test.mjs"
   }
 }
