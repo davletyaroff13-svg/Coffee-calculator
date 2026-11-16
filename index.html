@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор кофейни</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#f5f1eb;color:#29221d;margin:0;padding:24px}
+.app{max-width:430px;margin:45px auto;background:white;padding:26px;border-radius:22px;box-shadow:0 8px 35px #0001}
+h1{font-size:25px}label{display:block;margin:20px 0 7px}
+input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #ccc;border-radius:12px;font-size:19px}
+.result{background:#f0f8ee;border-radius:14px;padding:18px;margin-top:25px}
+.big{font-size:32px;font-weight:750}small{color:#666}
+</style>
+</head>
+<body>
+<main class="app">
+<h1>☕ Калькулятор кофейни</h1>
+<p>Посчитай прибыль с одной чашки кофе.</p>
+<label for="price">Цена продажи, ₽</label>
+<input id="price" type="number" value="250" min="0">
+<label for="cost">Себестоимость, ₽</label>
+<input id="cost" type="number" value="65" min="0">
+<div class="result"><div>Прибыль до прочих расходов</div><div class="big" id="profit">185 ₽</div><div>Маржинальность: <strong id="margin">74%</strong></div></div>
+<p><small>Без учёта аренды, зарплат, налогов и других расходов.</small></p>
+</main>
+<script>
+const p=document.querySelector('#price'),c=document.querySelector('#cost');
+function calc(){
+const price=Number(p.value)||0,cost=Number(c.value)||0;
+document.querySelector('#profit').textContent=(price-cost).toLocaleString('ru-RU')+' ₽';
+document.querySelector('#margin').textContent=price>0?((price-cost)/price*100).toFixed(1)+'%':'—';
+}
+p.addEventListener('input',calc);c.addEventListener('input',calc);calc();
+</script>
+</body>
+</html>
